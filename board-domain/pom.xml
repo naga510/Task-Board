@@ -3,6 +3,12 @@
   <groupId>task-board</groupId>
   <artifactId>board-domain</artifactId>
   <version>1.0</version>
+  <parent>
+		<groupId>task-board</groupId>
+		<artifactId>board-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../board-parent/pom.xml</relativePath>
+	</parent>
   <developers>
   <developer>
   <name>Nagaraju</name>
@@ -19,6 +25,7 @@
   </roles>
   </developer>
   </developers>
+  
   <dependencies>
   <dependency>
 	<groupId>org.hibernate</groupId>

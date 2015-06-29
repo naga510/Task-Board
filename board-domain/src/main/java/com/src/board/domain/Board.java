@@ -2,42 +2,45 @@ package com.src.board.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="BOARDS")
+@NamedQuery(name="findBoardsByUserId", query="from Board board where board.owner = :userId")		
 public class Board implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 611510466105182456L;
-	private Long boardId;
+	private String boardId;
 	private String name;
 	private String status;
-    private Long owner;
+    private String owner;
 	private List<Item> items;
 	
+	@PrePersist
+	public void prePersist(){
+		boardId = UUID.randomUUID().toString();
+	}
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="board_seq")
-	@SequenceGenerator(name="board_seq", sequenceName="BOARD_ID_SEQ", initialValue=1, allocationSize=1)
 	@Column(name="BOARD_ID", nullable=false, unique=true)
-	public Long getBoardId() {
+	public String getBoardId() {
 		return boardId;
 	}
-	public void setBoardId(Long id) {
+	public void setBoardId(String id) {
 		this.boardId = id;
 	}
 	
@@ -58,10 +61,10 @@ public class Board implements Serializable{
 	}
 	
 	@Column(name="BOARD_OWNER", nullable=false)
-    public Long getOwner() {
+    public String getOwner() {
 		return owner;
 	}
-	public void setOwner(Long owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 	
