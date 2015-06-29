@@ -2,5 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>task-board</groupId>
   <artifactId>board-enum</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
+  <parent>
+		<groupId>task-board</groupId>
+		<artifactId>board-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../board-parent/pom.xml</relativePath>
+	</parent>
 </project>
