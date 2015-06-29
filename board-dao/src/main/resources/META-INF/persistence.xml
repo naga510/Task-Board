@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+version="1.0">
+<persistence-unit name="boardsJpaUnit" transaction-type="RESOURCE_LOCAL" >
+<class>com.src.board.domain.Comment</class>
+<class>com.src.board.domain.Item</class>
+<class>com.src.board.domain.Attachment</class>
+<class>com.src.board.domain.Activity</class>
+<class>com.src.board.domain.Board</class>
+<class>com.src.board.domain.User</class>
+
+<!--<properties>
+ <property name="hibernate.hbm2ddl.auto" value="create" /> 	
+</properties>--> 
+</persistence-unit>
+</persistence>
