@@ -1,6 +1,5 @@
 package com.src.board.dao;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 public class GenericDaoJpaImpl<T, PK> implements GenericDao<T, PK> {
 
