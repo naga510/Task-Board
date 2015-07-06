@@ -1,8 +1,11 @@
 package com.src.board.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,27 +29,30 @@ public class Item implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5636347127509901234L;
-	private Long itemId;
+	private String itemId;
 	private String title;
 	private String description;
 	//private Member assignedTo;
 	private String category;
 	private String color;
-	private Date dueDate;
+	private LocalDateTime dueDate;
 	private String points;
 	private List<Attachment> attachments;
 	private List<Comment> comments;
 	private List<Activity> activities;
 	private Board board;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="item_seq")
-	@SequenceGenerator(name="item_seq", sequenceName="ITEM_ID_SEQ", initialValue=1, allocationSize=1)
+	@PrePersist
+	public void prePersist(){
+		itemId = UUID.randomUUID().toString();
+	}
+	
+	@Id	
 	@Column(name="ITEM_ID", nullable=false, unique=true)
-	public Long getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
-	public void setItemId(Long id) {
+	public void setItemId(String id) {
 		this.itemId = id;
 	}
 	
@@ -88,10 +95,10 @@ public class Item implements Serializable{
 	}
 	
 	@Column(name="ITEM_DUEDATE", nullable=false)
-	public Date getDueDate() {
+	public LocalDateTime getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDateTime dueDate) {
 		this.dueDate = dueDate;
 	}
 	
