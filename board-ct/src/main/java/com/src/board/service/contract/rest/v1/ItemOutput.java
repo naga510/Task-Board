@@ -1,26 +1,42 @@
 package com.src.board.service.contract.rest.v1;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.src.board.enums.CategoryEnum;
+import com.src.board.enums.ItemStatusEnum;
 
-public class ItemOutput {
+@XmlRootElement(name="item")
+public class ItemOutput implements Serializable{
 
 	private String id;
 	private String title;
 	private String description;
 	private CategoryEnum category;
-	private String status;
+	private ItemStatusEnum status;
 	private String color;
-	private Date dueDate;
+	private Long dueDate;
 	private String points;
 	private AttachmentOutput attachments;
+	private String boardId;
+	
+	public ItemOutput() {
+	}
 	//private 
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getBoardId() {
+		return boardId;
+	}
+	public void setBoardId(String boardId) {
+		this.boardId = boardId;
 	}
 	public String getTitle() {
 		return title;
@@ -40,10 +56,10 @@ public class ItemOutput {
 	public void setCategory(CategoryEnum category) {
 		this.category = category;
 	}
-	public String getStatus() {
+	public ItemStatusEnum getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(ItemStatusEnum status) {
 		this.status = status;
 	}
 	public String getColor() {
@@ -52,10 +68,11 @@ public class ItemOutput {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public Date getDueDate() {
+	
+	public Long getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(Long dueDate) {
 		this.dueDate = dueDate;
 	}
 	public String getPoints() {
