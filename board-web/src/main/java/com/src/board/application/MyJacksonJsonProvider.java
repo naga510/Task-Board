@@ -14,7 +14,6 @@ public class MyJacksonJsonProvider implements ContextResolver<ObjectMapper> {
 	static {		
 		MAPPER.setAnnotationIntrospector(new JaxbAnnotationIntrospector(MAPPER.getTypeFactory()));
 		MAPPER.registerModule(new JSR310Module());
-		MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
 	}
 	
 	@Override
