@@ -14,7 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 public class BaseResource {
 	
 	public <T> Response buildResponse(T result) {		
-		return Response.status(Status.ACCEPTED).entity(result).build();
+		return Response.status(Status.OK).entity(result).build();
 	}
 	
 	public  <T> T convertJsonToObject(String jsonString, Class<T> className) {

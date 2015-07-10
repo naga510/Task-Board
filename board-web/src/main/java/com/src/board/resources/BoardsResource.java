@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.src.board.enums.exception.BoardExceptionEnum;
 import com.src.board.service.contract.rest.v1.BoardService;
+import com.src.board.service.contract.rest.v1.Boards;
 
 @Component
 @Path("/boards")
@@ -28,7 +29,9 @@ public class BoardsResource extends BaseResource{
 		if(userId==null) {
 			throw new Exception(BoardExceptionEnum.INVALID_USER_ID.getErrorMessage());
 		}
-		return buildResponse(boardServiceImpl.listBoardsForUser(userId));
+		Boards boards=new Boards();
+		boards.setBoards(boardServiceImpl.listBoardsForUser(userId));
+		return buildResponse(boards);
 	}
 	
 	@POST
