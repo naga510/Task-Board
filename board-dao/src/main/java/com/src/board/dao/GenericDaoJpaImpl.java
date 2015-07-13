@@ -59,5 +59,29 @@ public List<T> findByNamedQueryAndParams(String nameQuery,
 	return (List<T>)query.getResultList();
 }
 
+@Override
+public T findSingleRecordByNamedQuery(String nameQuery) {
+	Query query = this.entityManager.createNamedQuery(nameQuery);
+	List<T> resultList=query.getResultList();
+	if(resultList!=null&& !resultList.isEmpty()) {
+		return resultList.get(0);
+	}
+	return null;
+}
+
+@Override
+public T findSingleRecordByNamedQueryAndParams(String nameQuery,
+		Map<String, Object> params) {
+	Query query = this.entityManager.createNamedQuery(nameQuery);
+	for(Parameter<?> p:query.getParameters()) {
+		query.setParameter(p.getName(), params.get(p.getName()));
+	}
+	List<T> resultList=query.getResultList();
+	if(resultList!=null&& !resultList.isEmpty()) {
+		return resultList.get(0);
+	}
+	return null;
+}
+
 
 }
