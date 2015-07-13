@@ -10,11 +10,13 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.src.board.service.contract.rest.v1.AuthenticatedUserToken;
+import com.src.board.service.contract.rest.v1.LoginRequest;
 import com.src.board.service.contract.rest.v1.User;
 import com.src.board.service.contract.rest.v1.UserService;
 
 @Component
-@Path("/users")
+@Path("/user")
 public class UserResource extends BaseResource{
 
 	@Autowired
@@ -25,5 +27,13 @@ public class UserResource extends BaseResource{
 	public Response createUser(@FormParam("name") String name, @FormParam("email") String email, @FormParam("password") String password) {
 		User user=userServiceImpl.createUser(name, email, password);
 		return buildResponse(user);
+	}
+	
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response login(LoginRequest request) {
+		AuthenticatedUserToken token=userServiceImpl.login(request);
+		return buildResponse(token);
 	}
 }
