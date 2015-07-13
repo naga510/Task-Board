@@ -28,7 +28,7 @@ public class AuthorizationToken implements Serializable{
 	 */
 	private static final long serialVersionUID = 7628657124796347897L;
 	
-	private final static long DEFAULT_TIME_TO_LIVE_IN_SECONDS = (60 * 2);
+	private final static long DEFAULT_TIME_TO_LIVE_IN_SECONDS = (60 * 5);
 	private String id;
     private String token;
     private LocalDateTime timeCreated;

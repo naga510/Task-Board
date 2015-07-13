@@ -8,9 +8,10 @@ version="1.0">
 <class>com.src.board.domain.Activity</class>
 <class>com.src.board.domain.Board</class>
 <class>com.src.board.domain.User</class>
+<class>com.src.board.domain.AuthorizationToken</class>
 
-<!--<properties>
+<!-- <properties>
  <property name="hibernate.hbm2ddl.auto" value="create" /> 	
-</properties>--> 
+</properties> -->
 </persistence-unit>
 </persistence>
