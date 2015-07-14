@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="USER_AUTHORIZATION_TOKEN")
+@NamedQuery(name="findUserByAuthToken", query="from AuthorizationToken authToken where authToken.token=:token")
 public class AuthorizationToken implements Serializable{
 
 	/**
