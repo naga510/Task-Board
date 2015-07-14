@@ -5,9 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,11 @@ import org.springframework.stereotype.Component;
 
 import com.src.board.dao.GenericDao;
 import com.src.board.domain.AuthorizationToken;
+import com.src.board.domain.User;
 import com.src.board.enums.UserStatusEnum;
 import com.src.board.service.contract.rest.v1.AuthenticatedUserToken;
 import com.src.board.service.contract.rest.v1.LoginRequest;
-import com.src.board.service.contract.rest.v1.User;
+import com.src.board.service.contract.rest.v1.ExternalUser;
 import com.src.board.service.contract.rest.v1.UserService;
 import com.src.board.util.BasicValidator;
 import com.src.board.util.UserUtil;
@@ -27,34 +26,29 @@ import com.src.board.util.UserUtil;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	GenericDao userDao;
+	GenericDao<User, ?> userDao;
 	
 	@Autowired
-	GenericDao authTokenDao;
+	GenericDao<AuthorizationToken, ?> authTokenDao;
 	
 	
 	@Override
-	public User createUser(String name, String email, String password) {
+	public ExternalUser createUser(String name, String email, String password) {
 		validateUserDetails(name, email, password);
-		Map<String,String> userDetails=new HashMap();
-		userDetails.put("userName", email.substring(0, email.indexOf('@')));
-		com.src.board.domain.User user=(com.src.board.domain.User) userDao.findSingleRecordByNamedQueryAndParams("findUserByUserName", userDetails);
-		if(user!=null) {
+		User user=(User) userDao.findSingleRecordByNamedQueryAndParams("findUserByUserName", Collections.singletonMap("userName", email.substring(0, email.indexOf('@'))));
+		if(user==null) {
 			//TODO:Throw Exception
-			return createUser(user);
+			return null;
 		}
-		com.src.board.domain.User dbUser=createDbUser(name, email, password);
-		dbUser=(com.src.board.domain.User) userDao.create(dbUser);
-		System.out.println("User Created");
-		return createUser(dbUser);
+		User dbUser=createDbUser(name, email, password);
+		dbUser=(User) userDao.create(dbUser);
+		return new ExternalUser(dbUser);
 	}
 	
 	@Override
 	public AuthenticatedUserToken login(LoginRequest request) {
 		BasicValidator.isSafeText(request.getUserName());
-		Map<String,String> userDetails=new HashMap();
-		userDetails.put("userName", request.getUserName());
-		com.src.board.domain.User user=(com.src.board.domain.User) userDao.findSingleRecordByNamedQueryAndParams("findUserByUserName", userDetails);
+		User user=(User) userDao.findSingleRecordByNamedQueryAndParams("findUserByUserName", Collections.singletonMap("userName", request.getUserName()));
 		if(user==null) {
 			return null;
 		}
@@ -91,8 +85,8 @@ public class UserServiceImpl implements UserService {
 		BasicValidator.isValidPassword(password);
 	}
 	
-	private com.src.board.domain.User createDbUser(String name, String email, String password) {
-		com.src.board.domain.User dbUser=new com.src.board.domain.User();
+	private User createDbUser(String name, String email, String password) {
+		User dbUser=new User();
 		dbUser.setEmailId(email);
 		dbUser.setFullName(name);
 		dbUser.setUserName(email.substring(0, email.indexOf('@')));		
@@ -114,17 +108,6 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("User Creation Failed");
 		}
 		return dbUser;
-	}
-	
-	private User createUser(com.src.board.domain.User dbUser) {
-		System.out.println(dbUser.getAuthorizeToken());
-		User user=new User();
-		user.setEmail(dbUser.getEmailId());
-		user.setName(dbUser.getFullName());
-		user.setStatus(UserStatusEnum.fromString(dbUser.getStatus()));
-		user.setUserType("normal");
-		return user;
-		
 	}
 
 }

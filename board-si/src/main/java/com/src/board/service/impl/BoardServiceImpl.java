@@ -18,7 +18,7 @@ import com.src.board.service.contract.rest.v1.BoardService;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	private GenericDao boardDao;
+	private GenericDao<Board, ?> boardDao;
 	
 	private Function<Board, BoardOutput> boardOutputFunction= board->toBoardOutput(board);
 	

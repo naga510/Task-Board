@@ -17,10 +17,10 @@ import com.src.board.service.contract.rest.v1.ItemService;
 public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
-	private GenericDao boardDao;
+	private GenericDao<Board, String> boardDao;
 	
 	@Autowired
-	private GenericDao itemDao;
+	private GenericDao<Item, String> itemDao;
 
 	@Override
 	public ItemOutput createItem(ItemOutput item) {
