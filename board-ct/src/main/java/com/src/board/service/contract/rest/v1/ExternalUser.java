@@ -1,9 +1,13 @@
 package com.src.board.service.contract.rest.v1;
 
+import java.security.Principal;
+
+import com.src.board.domain.User;
 import com.src.board.enums.UserStatusEnum;
 
-public class User {
+public class ExternalUser implements Principal{
 
+	private String id;
 	private String name;
 	private String userName;
 	private String email;
@@ -11,6 +15,14 @@ public class User {
 	private String userType;
 	private UserStatusEnum status;
 	private String url;
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -52,12 +64,14 @@ public class User {
 	}
 	public void setUrl(String url) {
 		this.url = url;
-	}
+	}					
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -74,13 +88,18 @@ public class User {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof User))
+		if (!(obj instanceof ExternalUser))
 			return false;
-		User other = (User) obj;
+		ExternalUser other = (ExternalUser) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (locale == null) {
 			if (other.locale != null)
@@ -92,10 +111,7 @@ public class User {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
 		if (url == null) {
 			if (other.url != null)
@@ -114,16 +130,15 @@ public class User {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", userName=" + userName + ", email="
-				+ email + ", locale=" + locale + ", userType=" + userType
-				+ ", status=" + status + ", url=" + url + "]";
-	}
 	
-	
-	
-	
+	public ExternalUser(User user) {
+        this.id = user.getUserId();
+        this.email = user.getEmailId();
+        this.name = user.getFullName();
+        this.userName = user.getUserName();
+        this.status=UserStatusEnum.fromString(user.getStatus());        
+    }
+
 	
 	
 }
