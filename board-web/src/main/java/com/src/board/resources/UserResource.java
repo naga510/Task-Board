@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.src.board.service.contract.rest.v1.AuthenticatedUserToken;
 import com.src.board.service.contract.rest.v1.LoginRequest;
-import com.src.board.service.contract.rest.v1.User;
+import com.src.board.service.contract.rest.v1.ExternalUser;
 import com.src.board.service.contract.rest.v1.UserService;
 
 @Component
@@ -24,8 +24,8 @@ public class UserResource extends BaseResource{
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response createUser(@FormParam("name") String name, @FormParam("email") String email, @FormParam("password") String password) {
-		User user=userServiceImpl.createUser(name, email, password);
+	public Response createUser(@FormParam("name") String name, @FormParam("email") String email, @FormParam("password") String password) {		
+		ExternalUser user=userServiceImpl.createUser(name, email, password);
 		return buildResponse(user);
 	}
 	

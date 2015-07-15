@@ -2,6 +2,7 @@ package com.src.board.application;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 import com.src.board.resources.BoardsResource;
@@ -16,6 +17,9 @@ public class BoardApplication extends ResourceConfig{
 		register(UserResource.class);
 		register(ItemResource.class);
 		register(MyJacksonJsonProvider.class);
+		register(SecurityContextFilter.class);
+		register(CustomRespnseFilter.class);
+		register(RolesAllowedDynamicFeature.class);
 		//register(InvalidDataExceptionMapper.class);
 		register(JacksonFeature.class);
 	}

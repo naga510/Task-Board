@@ -13,7 +13,8 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 @Produces(MediaType.APPLICATION_JSON)
 public class BaseResource {
 	
-	public <T> Response buildResponse(T result) {		
+	
+	public <T> Response buildResponse(T result) {
 		return Response.status(Status.OK).entity(result).build();
 	}
 	
