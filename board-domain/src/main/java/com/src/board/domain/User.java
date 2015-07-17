@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -15,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
-@NamedQuery(name="findUserByUserName", query="from User user where user.userName = :userName")
+@NamedQueries(value = {
+		@NamedQuery(name = "findUserByEmail", query = "from User user where user.emailId = :emailId"),
+		@NamedQuery(name = "findUserByUserNameOREmail", query = "from User user where user.userName = :userName or user.emailId = :userName") })
 public class User implements Serializable {
 
 	/**

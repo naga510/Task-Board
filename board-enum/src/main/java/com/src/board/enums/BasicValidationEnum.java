@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public enum BasicValidationEnum {
 
 	EMAIL(Pattern.compile("^[a-zA-Z0-9+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"), "Invalid Email"),
-	PASSWORD(Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"), "Invalid PAssword"),
+	PASSWORD(Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"), "Invalid Password"),
 	SAFETEXT(Pattern.compile("^[a-zA-Z0-9 .-]+$"), "Invalid Text");
 	
 	private Pattern pattern;
