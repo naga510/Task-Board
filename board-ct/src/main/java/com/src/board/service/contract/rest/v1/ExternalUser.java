@@ -15,6 +15,7 @@ public class ExternalUser implements Principal{
 	private String userType;
 	private UserStatusEnum status;
 	private String url;
+	private String defaultBoard;
 	
 	
 	public String getId() {
@@ -64,7 +65,14 @@ public class ExternalUser implements Principal{
 	}
 	public void setUrl(String url) {
 		this.url = url;
-	}					
+	}		
+	
+	public String getDefaultBoard() {
+		return defaultBoard;
+	}
+	public void setDefaultBoard(String defaultBoard) {
+		this.defaultBoard = defaultBoard;
+	}
 	
 	@Override
 	public int hashCode() {

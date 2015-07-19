@@ -5,7 +5,8 @@ public enum ExceptionEnum {
 	INVALID_BOARD_NAME("001","Board Name is not valid"),
 	INVALID_USER_NAME("101", "User Name is not valid"),
 	USER_ALREADY_EXISTS("102", "User already exists"),
-	INVALID_USERID_PASSWORD("103","The username or password were incorrect");
+	INVALID_USERID_PASSWORD("103","The username or password were incorrect"),
+	INALID_AUTH_TOKEN("104", "Invalid Auth Token");
 	
 	private String errorId;
 	private String errorMessage;

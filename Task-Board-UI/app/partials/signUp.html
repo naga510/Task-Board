@@ -1,0 +1,49 @@
+<div class="container reg-container">
+    <div class="row">
+<div id="signup" data-ng-controller="LoginCtrl">
+    <div class="bg-danger text-danger login-error" data-ng-repeat="error in errors"><p>{{ error }}</p></div>
+    
+<form class="form-horizontal" role="form" data-ng-submit="signup(formdata)" novalidate>
+  <fieldset>
+    <div id="legend">
+      <h2 class="form-signin-heading">Register</h2>
+    </div>
+    <div class="control-group">
+      <!-- Name -->
+      <label class="control-label"  for="name">Name</label>
+      <div class="controls">
+        <input type="text" id="name" class="form-control" placeholder="Name" required autofocus data-ng-model="formdata.name" >
+        <p class="help-block">Name can contain any letters or numbers</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" id="email"  class="form-control" placeholder="Email" required autofocus data-ng-model="formdata.email">
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" class="form-control" placeholder="Password" required data-ng-model="formdata.password">
+        <p class="help-block">Password should be at least 8 characters</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+<div data-on-load-callback="clear"></div>
+</div>
+</div>

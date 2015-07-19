@@ -13,5 +13,9 @@ public class AuthenticationException extends BaseAPIException {
 		super(401, ExceptionEnum.INVALID_USERID_PASSWORD.getErrorMessage(),
 				ExceptionEnum.INVALID_USERID_PASSWORD.getErrorId());
 	}
+	
+	public AuthenticationException(String errorMessage, String errorCode) {
+		super(401, errorMessage,errorCode);
+	}
 
 }

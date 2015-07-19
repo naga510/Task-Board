@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 				userToken.setUserId(user.getUserId());
 				if(authToken.hasExpired()) {
 					authToken.setToken(UUID.randomUUID().toString());
-					authToken.setExpirationDate(LocalDateTime.now().plusSeconds(300));
+					authToken.setExpirationDate(LocalDateTime.now().plusSeconds(60*60));
 					authTokenDao.update(authToken);
 					userToken.setToken(authToken.getToken());
 					return userToken;
