@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,6 +30,7 @@ public class Board implements Serializable{
 	private String status;
     private String owner;
 	private List<Item> items;
+	private List<Member> members;
 	
 	@PrePersist
 	public void prePersist(){
@@ -75,6 +77,17 @@ public class Board implements Serializable{
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+	
+	@OneToMany
+	@JoinColumn(name="BOARD_ID")
+	public List<Member> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Member> members) {
+		this.members = members;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,6 +99,7 @@ public class Board implements Serializable{
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

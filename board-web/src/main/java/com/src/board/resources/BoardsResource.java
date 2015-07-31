@@ -6,6 +6,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,9 +19,10 @@ import com.src.board.enums.exception.ExceptionEnum;
 import com.src.board.service.contract.rest.v1.BoardService;
 import com.src.board.service.contract.rest.v1.Boards;
 import com.src.board.service.contract.rest.v1.ExternalUser;
+import com.src.board.service.contract.rest.v1.exception.ValidationException;
 
 @Component
-@Path("/board")
+@Path("/boards")
 public class BoardsResource extends BaseResource{
 
 	@Autowired
@@ -34,6 +36,18 @@ public class BoardsResource extends BaseResource{
 		Boards boards=new Boards();
 		boards.setBoards(boardServiceImpl.listBoardsForUser(user.getId()));
 		return buildResponse(boards);
+	}
+	
+	@GET
+	@Path("/{boardid}")
+	@RolesAllowed({"authenticated"})
+	public Response getBoard(@PathParam("boardid") String boardId, @Context SecurityContext sc) {
+		if(boardId==null||boardId.isEmpty()) {
+			throw new ValidationException(
+					ExceptionEnum.INVALID_BOARD_ID.getErrorMessage(),
+					ExceptionEnum.INVALID_BOARD_ID.getErrorId());
+		}
+		return buildResponse(boardServiceImpl.getBoard(boardId));
 	}
 	
 	@POST

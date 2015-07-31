@@ -23,6 +23,8 @@ public class LoggingAspect {
 		logMessage.append(joinPoint.getTarget().getClass().getName());
 		logMessage.append(".");
 		logMessage.append(joinPoint.getSignature().getName());
+		
+		
 //		logMessage.append("(");
 //		// append args
 //		Object[] args = joinPoint.getArgs();

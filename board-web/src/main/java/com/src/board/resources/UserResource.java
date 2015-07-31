@@ -23,7 +23,7 @@ import com.src.board.service.contract.rest.v1.exception.AuthenticationException;
 import com.src.board.validator.BasicValidator;
 
 @Component
-@Path("/user")
+@Path("/users")
 public class UserResource extends BaseResource{
 
 	@Autowired

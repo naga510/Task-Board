@@ -14,7 +14,10 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
  
 <bean id="entityManagerFactory"
 class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+<!-- <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" /> -->
+<property name="packagesToScan"
+			value="com.src.board.domain" />
+<property name="hibernate.hbm2ddl.auto" value="create" /> 				
 <property name="persistenceUnitName" value="boardsJpaUnit" />
 <property name="dataSource" ref="dataSource" />
 <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />

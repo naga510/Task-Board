@@ -6,5 +6,7 @@ public interface BoardService {
 
 	public List<BoardOutput> listBoardsForUser(String userId);
 	
+	public BoardOutput getBoard(String boardId);
+	
 	public BoardOutput createBoard(String boardName, String userId);
 }
